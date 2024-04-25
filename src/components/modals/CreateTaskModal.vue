@@ -1,7 +1,7 @@
 <template>
     <v-dialog v-model="internalDialogVisible" max-width="500"  @click:outside="closeDialog">
       <v-card>
-        <v-card-title class="modal-title">Create New List</v-card-title>
+        <v-card-title class="modal-title">Create New Task</v-card-title>
         <v-card-text>
           <v-form ref="form" @submit.prevent="handleCreateList">
           <v-text-field

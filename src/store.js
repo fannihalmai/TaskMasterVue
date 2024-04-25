@@ -10,7 +10,7 @@ export default new Vuex.Store({
     tasks: [],
     selectedTask: null,
     taskLists: [],
-    isLoggedIn:false
+    isLoggedIn: false
   },
   mutations: {
     setUser(state, user) {
