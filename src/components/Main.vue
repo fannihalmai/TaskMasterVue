@@ -77,7 +77,7 @@
           { text: 'Is done?', value: 'priority' },
           { text: 'Status', value: 'status' },
         ],
-        isDoneToggle: 0,
+        isDoneToggle: 1,
         dataTasks: [],
         }
       },
