@@ -34,6 +34,7 @@ export default {
           this.$router.push('/dashboard');
         })
         .catch((error) => {
+          alert('Login failed, make sure you have entered correct details or create an account!');
           console.error('Login error', error);
         });
     }

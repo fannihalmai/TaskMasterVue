@@ -10,6 +10,7 @@ export default new Vuex.Store({
     tasks: [],
     selectedTask: null,
     taskLists: [],
+    isLoggedIn:false
   },
   mutations: {
     setUser(state, user) {
@@ -35,6 +36,9 @@ export default new Vuex.Store({
     toggleTaskDone(state, taskId) {
       const task = state.tasks.find(task => task.id === taskId);
       task.done = !task.done;
+    },
+    setLoggedIn(state, isLoggedIn){
+      state.isLoggedIn = isLoggedIn;
     }
   },   
   actions: {
@@ -58,6 +62,7 @@ export default new Vuex.Store({
         commit('setUser', user);
         commit('setTaskLists', user.taskLists);
         localStorage.setItem('token', resp.access_token);
+        commit('setLoggedIn', true);
       } catch (error) {
         console.error('Login error:', error);
         throw error;
@@ -167,8 +172,9 @@ export default new Vuex.Store({
         console.error('Delete task error:', error);
       }
     },
-    async logout(){
+    async logout({ commit }){
       localStorage.removeItem('token');
+      commit('setLoggedIn', false);
     },
     async toggleTaskDone({ commit },task) {
       try {

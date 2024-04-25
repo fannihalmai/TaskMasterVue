@@ -53,8 +53,15 @@ export default {
       });
 
       if (!response.ok) {
+        if(response.status == 409){ // conflict as email in use
+          alert('Sign up failed, it seems like this email address is already is use !');
+        } else {
+          alert('Sign up failed, make sure you have entered correct details');
+        }
         throw new Error('Signup request failed');
       }
+      alert('Signup successful, you can now login.');
+      this.$router.push('/');
       // TODO notify user signup successful
     } catch (error) {
       console.error('Signup error:', error.message);

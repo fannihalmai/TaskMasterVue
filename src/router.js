@@ -3,6 +3,7 @@ import VueRouter from 'vue-router';
 import Login from './views/Login.vue';
 import Signup from './views/Signup.vue';
 import Dashboard from './views/Dashboard.vue';
+import store from './store';
 
 Vue.use(VueRouter);
 
@@ -17,9 +18,15 @@ const routes = [
   },
   {
     path: '/dashboard',
-    component: Dashboard
-  },
-
+    component: Dashboard,
+    beforeEnter: (to, from, next) => {
+      if (store.state.isLoggedIn) {
+        next(); 
+      } else {
+        next('/');
+      }
+    }
+  }
 ];
 
 export default new VueRouter({
