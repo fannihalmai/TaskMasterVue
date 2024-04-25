@@ -101,8 +101,8 @@
   vertical-align: middle;  margin-right: 30px;
   max-width: 20%;
   min-width: 125px;  
-  margin-top: 20px;
   background-color: #f0f0f0;
+  height: 100vh;
 }
 
 .main {
