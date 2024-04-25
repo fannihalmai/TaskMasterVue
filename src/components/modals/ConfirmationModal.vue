@@ -4,8 +4,8 @@
       <div class="modal-content">
         <p>Are you sure you want to delete this?</p>
         <div class="modal-buttons">
-          <button class="red-button" @click="confirm">Yes, Delete</button>
-          <button @click="cancel">Cancel</button>
+          <v-btn class="red-button" @click="confirm">Yes, Delete</v-btn>
+          <v-btn @click="cancel">Cancel</v-btn>
         </div>
       </div>
     </div>
@@ -53,7 +53,7 @@
   .red-button {
     background-color: #ff4d4f;
     border: 1px solid #ff4d4f;
-    color: white;
+    color: #ff4d4f;
     padding: 5px 10px;
     border-radius: 5px;
     cursor: pointer;
