@@ -3,6 +3,7 @@
   <v-card>
     <v-card-title>Create new task list</v-card-title>
     <v-card-text>
+      <div style="font-style: italic;">Reminder: task list name needs to be unique</div>
       <v-form ref="form" @submit.prevent="handleCreateTask">
         <v-text-field
           v-model="name"
@@ -11,7 +12,7 @@
       </v-form>
     </v-card-text>
     <v-card-actions>
-      <v-btn color="create-btn" :disabled="!name" @click="handleCreateTaskList">Create</v-btn>
+      <v-btn color="create-btn" :disabled="!name || nameTaken" @click="handleCreateTaskList">Create</v-btn>
       <v-btn color="cancel-btn" @click="closeDialog">Cancel</v-btn>
     </v-card-actions>
   </v-card>
@@ -19,6 +20,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   props: {
     dialogVisible: Boolean,
@@ -29,6 +31,17 @@ export default {
       name: '',
     };
   },
+  computed: {
+      ...mapState({
+        taskLists: 'taskLists',
+      }),
+      nameTaken() {
+        if(this.taskLists){
+          return this.taskLists.filter((taskList) => taskList.name === this.name).length > 0;
+        }
+        return false;
+      },
+    },
   watch: {
     dialogVisible(newValue) {
       console.log("new list value : ", newValue)
