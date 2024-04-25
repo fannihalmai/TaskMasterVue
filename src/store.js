@@ -43,7 +43,7 @@ export default new Vuex.Store({
   actions: {
     async toggleTaskDone({ commit }, task) {
       try {
-        await fetch(`http://localhost:3000/tasks/${task.id}`, {
+        await fetch(`${process.env.VUE_APP_BACKEND_API}/tasks/${task.id}`, {
           method: 'PATCH',
           headers: {
             'Content-Type': 'application/json',
@@ -58,7 +58,7 @@ export default new Vuex.Store({
     },
     async login({ commit }, { email, password }) {
       try {
-        const response = await fetch('http://localhost:3000/auth/login', {
+        const response = await fetch(`${process.env.VUE_APP_BACKEND_API}/auth/login`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -83,7 +83,7 @@ export default new Vuex.Store({
       }
     },
     async getUser({ commit }){
-      const profile = await fetch('http://localhost:3000/users/profile', {
+      const profile = await fetch(`${process.env.VUE_APP_BACKEND_API}/users/profile`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -102,7 +102,7 @@ export default new Vuex.Store({
         if (!taskListId) {
           return; // No selected task list, do nothing
         }
-        const response = await fetch(`http://localhost:3000/tasks/${taskListId}`,{
+        const response = await fetch(`${process.env.VUE_APP_BACKEND_API}/tasks/${taskListId}`,{
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -121,7 +121,7 @@ export default new Vuex.Store({
     },
     async createTaskList({ commit, state }, title) {
       try {
-        const response = await fetch('http://localhost:3000/users/task-lists', {
+        const response = await fetch(`${process.env.VUE_APP_BACKEND_API}/users/task-lists`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -141,7 +141,7 @@ export default new Vuex.Store({
       let taskListId = state.selectedTaskListId;
       console.log(JSON.stringify(taskToCreate))
       try {
-        const response = await fetch(`http://localhost:3000/tasks/${taskListId}`, {
+        const response = await fetch(`${process.env.VUE_APP_BACKEND_API}/tasks/${taskListId}`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -162,7 +162,7 @@ export default new Vuex.Store({
     },
     async deleteTaskList({ commit, state }, taskListId){
       try {
-        await fetch(`http://localhost:3000/users/task-lists/${taskListId}`, {
+        await fetch(`${process.env.VUE_APP_BACKEND_API}/users/task-lists/${taskListId}`, {
           method: 'DELETE',
           headers: {
             'Authorization': 'Bearer ' + localStorage.getItem('token')
@@ -175,7 +175,7 @@ export default new Vuex.Store({
     },
     async deleteTask({ commit, state }, taskId) {
       try {
-        await fetch(`http://localhost:3000/tasks/${taskId}`, {
+        await fetch(`${process.env.VUE_APP_BACKEND_API}/tasks/${taskId}`, {
           method: 'DELETE',
           headers: {
             'Authorization': 'Bearer ' + localStorage.getItem('token')

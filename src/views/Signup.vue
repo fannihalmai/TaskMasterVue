@@ -59,7 +59,7 @@ export default {
         password: this.password
       };
       try {
-      const response = await fetch('http://localhost:3000/users', {
+      const response = await fetch(`${process.env.VUE_APP_BACKEND_API}/users`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
