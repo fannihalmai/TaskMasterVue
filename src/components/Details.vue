@@ -2,16 +2,17 @@
     <div class="details">
     <div v-if="selectedTask">
       <h2>Additional Task Details</h2>
-      <p><strong>Title:</strong> {{ selectedTask.name }}</p>
+      <p><strong>Title:</strong> {{ selectedTask.shortDescription }}</p>
       <p><strong>Description:</strong> {{ selectedTask.longDescription }}</p>
       <p><strong>Due Date:</strong> {{ selectedTask.dueDate }}</p>
-      <p><strong>Created At:</strong> {{ selectedTask.createdAt }}</p>
-      <button class="red-button" @click="openConfirmationModal">Delete</button>
+      <p><strong>Created:</strong> {{ selectedTask.createdAt }}</p>
+      <v-btn class="red-button" @click="openConfirmationModal">Delete</v-btn>
     </div>
-    <DeleteConfirmationModal v-if="showConfirmationModal" @confirm="deleteTask" @cancel="closeConfirmationModal" />
     <div v-else>
       <p>No task selected</p>
     </div>
+    <DeleteConfirmationModal v-if="showConfirmationModal" @confirm="deleteTask" @cancel="closeConfirmationModal" />
+    
   </div>
   </template>
   
@@ -50,7 +51,12 @@
   </script>
   
   <style scoped>
+    .details{
+      text-align: end;
+      line-height: 45px;   /* within paragraph */
+    }
     .red-button {
+      height: 50px; /* Button height */
       background-color: #ffe6e6; /* Light red background */
       border: 1px solid #ff6666; /* Border color */
       color: #ff6666; /* Text color */

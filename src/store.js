@@ -31,6 +31,10 @@ export default new Vuex.Store({
     },
     setSelectedTask(state, task) {
       state.selectedTask = task;
+    },
+    toggleTaskDone(state, taskId) {
+      const task = state.tasks.find(task => task.id === taskId);
+      task.done = !task.done;
     }
   },   
   actions: {
@@ -109,9 +113,7 @@ export default new Vuex.Store({
         if (!response.ok) {
           throw new Error('Failed to create task list');
         }
-        const taskList = await response.json();
-        console.log("State list", state.taskLists)
-        commit('setTaskLists', [...state.taskLists, taskList]);
+        commit('setTaskLists', [...state.taskLists, title]);
       } catch (error) {
         console.error('Create task list error:', error);
       }
@@ -164,7 +166,22 @@ export default new Vuex.Store({
       } catch (error) {
         console.error('Delete task error:', error);
       }
-    }
+    },
+    async toggleTaskDone({ commit },task) {
+      try {
+        await fetch(`http://localhost:3000/tasks/${task.id}/`, {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+          },
+          body: JSON.stringify({ isDone: !task.isDone })
+        });
+        commit('toggleTaskDone', task.id);
+      } catch (error) {
+        console.error('Toggle task done error:', error);
+      }
+    },
   },
   getters: {
     isLoggedIn: state => !!state.user,

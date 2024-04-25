@@ -41,6 +41,7 @@ export default {
         name: this.name,
       };
       this.$store.dispatch('createTaskList', taskListToCreate);
+      this.$emit('close');
       this.internalDialogVisible = false;
     },
     closeDialog() {

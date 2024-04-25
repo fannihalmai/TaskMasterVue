@@ -13,7 +13,7 @@
       <v-icon>mdi-plus</v-icon>
     </v-btn>
     <v-data-table
-    position: relative
+      position: relative
       max-width="500"
       :headers="headers"
       :items="tasks"
@@ -22,12 +22,20 @@
     >
     
       <template v-slot:item="{ item }">
+        <transition name="fade">
         <tr @click="selectTask(item)">
           <td>{{ item.shortDescription }}</td>
           <td>{{ item.dueDate }}</td>
-          <td>{{ item.priority }}</td>
+          
+          <td style="position: relative; vertical-align: middle;">
+            <v-btn small @click="toggleTaskDone(item)" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+              Mark as done
+            </v-btn>
+          </td>
+
           <td>{{ item.isDone }}</td>
         </tr>
+      </transition>
         
       </template>
     </v-data-table>
@@ -54,7 +62,7 @@
             value: 'name',
           },
           { text: 'Due Date', value: 'dueDate' },
-          { text: 'Priority', value: 'priority' },
+          { text: 'Is done?', value: 'priority' },
           { text: 'Status', value: 'status' },
         ],
         }
@@ -70,8 +78,14 @@
             },
             createNewTask(){
               this.$emit('openNewTaskDialog');
-            }
-        },
+            },
+            toggleTaskDone(task) {
+              setTimeout(() => {
+                alert('Task marked as done');
+                this.$store.dispatch('toggleTaskDone', task);
+              }, 1000);
+            },
+        }
     };
   </script>
   
