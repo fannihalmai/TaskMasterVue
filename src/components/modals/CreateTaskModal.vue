@@ -8,11 +8,15 @@
             v-model="shortDescription"
             label="Short Description"
             required
+            :maxlength="30"
+            counter
           ></v-text-field>
           <v-textarea
             v-model="longDescription"
             label="Long Description"
             hint="Optional"
+            :maxlength="150"
+            counter
           ></v-textarea>
           <v-menu
             v-model="dueDateMenu"
@@ -38,8 +42,8 @@
         </v-form>
         </v-card-text>
         <v-card-actions>
-          <v-btn color="create-btn" @click="handleCreateTask">Create</v-btn>
-          <v-btn color="cancel-btn" @click="closeDialog">Cancel</v-btn>
+          <v-btn color="create-btn" :disabled="!shortDescription || !dueDate" @click="handleCreateTask">Create</v-btn>
+          <v-btn color="cancel-btn"  @click="closeDialog">Cancel</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
