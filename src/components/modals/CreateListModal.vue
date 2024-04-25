@@ -1,7 +1,7 @@
 <template>
 <v-dialog v-model="internalDialogVisible" max-width="500"  @click:outside="closeDialog">
   <v-card>
-    <v-card-title>Create new task list</v-card-title>
+    <v-card-title>Create New Task List</v-card-title>
     <v-card-text>
       <div style="font-style: italic;">Reminder: task list name needs to be unique</div>
       <v-form ref="form" @submit.prevent="handleCreateTask">

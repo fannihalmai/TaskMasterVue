@@ -76,7 +76,7 @@ export default {
         throw new Error('Signup request failed');
       }
       alert('Signup successful, you can now login.');
-      this.$router.push('/');
+      this.$router.push('/login');
       // TODO notify user signup successful
     } catch (error) {
       console.error('Signup error:', error.message);

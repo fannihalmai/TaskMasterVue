@@ -10,6 +10,17 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: '/',
+    component: Dashboard,
+    beforeEnter: (to, from, next) => {
+      if (store.state.isLoggedIn) {
+        next(); 
+      } else {
+        next('/login');
+      }
+    }
+  },
+  {
+    path: '/login',
     component: Login
   },
   {
