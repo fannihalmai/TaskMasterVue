@@ -2,7 +2,7 @@
 <template>
     <div class="modal">
       <div class="modal-content">
-        <p>Are you sure you want to delete this task?</p>
+        <p>Are you sure you want to delete this?</p>
         <div class="modal-buttons">
           <button class="red-button" @click="confirm">Yes, Delete</button>
           <button @click="cancel">Cancel</button>

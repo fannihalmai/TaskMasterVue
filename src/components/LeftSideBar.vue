@@ -35,10 +35,10 @@
               <v-icon>mdi-star</v-icon>
             </v-list-item-icon>
             <v-list-item-title>{{ taskList.name }}</v-list-item-title>
-            <v-list-item-action><v-btn icon @click="deleteTaskList(taskList.id)">
+            <v-list-item-action><v-btn icon @click="openConfirmationModal">
               <v-icon>mdi-delete</v-icon>
             </v-btn></v-list-item-action>  
-            <v-list-item-action><v-btn icon @click="addTask(taskList.id)">
+            <v-list-item-action><v-btn icon @click="addTaskToList(taskList.id)">
               <v-icon>mdi-plus</v-icon>
             </v-btn></v-list-item-action>  
             
@@ -49,26 +49,37 @@
 
       </v-navigation-drawer>
     </v-card>
+    <DeleteConfirmationModal v-if="showConfirmationModal" @confirm="deleteTaskList" @cancel="closeConfirmationModal" />
   </div>
 </template>
    
   <script>
   import { mapState } from 'vuex'
+  import DeleteConfirmationModal from './modals/ConfirmationModal.vue';
   export default {
     name: 'sideBar',
+    components: {
+      DeleteConfirmationModal
+    },
     data () {
       return {
         drawer: true,
         mini: false,
         showNewListDialog: false,
+        showConfirmationModal: false,
+        taskIdToDelete: null,
       }
     },
     computed: {
       ...mapState({
         taskLists: 'taskLists',
+        selectedTaskListId: 'selectedTaskListId',
       })
     },
     methods: {
+      openConfirmationModal() {
+        this.showConfirmationModal = true;
+      },
       selectTaskList(taskListId) {
         console.log(taskListId)
         this.$store.commit('setSelectedTaskList', taskListId);
@@ -81,11 +92,14 @@
       closeNewListDialog() {
         this.showNewListDialog = false;
       },
-      deleteTaskList(taskListId){
-        console.log('Delete task list with id:', taskListId)
-        this.$store.dispatch('deleteTaskList', taskListId);
+      closeConfirmationModal() {
+        this.showConfirmationModal = false;
       },
-      addTask(taskListId){
+      deleteTaskList(){
+        this.closeConfirmationModal();
+        this.$store.dispatch('deleteTaskList', this.selectedTaskListId);
+      },
+      addTaskToList(taskListId){
         console.log('Add task to task list with id:', taskListId)
         this.$store.commit('setSelectedTaskList', taskListId);
         this.$emit('openNewTaskDialog');
