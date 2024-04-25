@@ -4,8 +4,8 @@
       <h2>Additional Task Details</h2>
       <p><strong>Title:</strong> {{ selectedTask.shortDescription }}</p>
       <p><strong>Description:</strong> {{ selectedTask.longDescription }}</p>
-      <p><strong>Due Date:</strong> {{ selectedTask.dueDate }}</p>
-      <p><strong>Created:</strong> {{ selectedTask.createdAt }}</p>
+      <p><strong>Due Date:</strong> {{ formatDate(selectedTask.dueDate) }}</p>
+      <p><strong>Created:</strong> {{ formatDate(selectedTask.creationDate) }}</p>
       <v-btn class="red-button" @click="openConfirmationModal">Delete</v-btn>
     </div>
     <div v-else>
@@ -45,6 +45,9 @@
         // You can emit an event to the parent component or make an API call here
         this.closeConfirmationModal();
         this.$store.dispatch('deleteTask', this.selectedTask.id);
+      },
+      formatDate(date){
+        return new Date(date).toLocaleDateString();
       }
     }
 };

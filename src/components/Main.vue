@@ -25,7 +25,7 @@
         <transition name="fade">
         <tr @click="selectTask(item)">
           <td>{{ item.shortDescription }}</td>
-          <td>{{ item.dueDate }}</td>
+          <td>{{ formatDate(item.dueDate) }}</td>
           
           <td style="position: relative; vertical-align: middle;">
             <v-btn small @click="toggleTaskDone(item)" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
@@ -79,10 +79,13 @@
             createNewTask(){
               this.$emit('openNewTaskDialog');
             },
+            formatDate(date){
+              return new Date(date).toLocaleDateString();
+            },
             toggleTaskDone(task) {
+              this.$store.dispatch('toggleTaskDone', task);
               setTimeout(() => {
                 alert('Task marked as done');
-                this.$store.dispatch('toggleTaskDone', task);
               }, 1000);
             },
         }
