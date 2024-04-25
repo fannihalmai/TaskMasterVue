@@ -98,13 +98,13 @@ export default new Vuex.Store({
     },
     async createTaskList({ commit, state }, title) {
       try {
-        const response = await fetch('http://localhost:3000/users/taskLists', {
+        const response = await fetch('http://localhost:3000/users/task-lists', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + localStorage.getItem('token')
           },
-          body: JSON.stringify({ title }),
+          body: JSON.stringify( title ),
         });
         if (!response.ok) {
           throw new Error('Failed to create task list');

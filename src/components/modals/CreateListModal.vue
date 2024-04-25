@@ -11,7 +11,7 @@
       </v-form>
     </v-card-text>
     <v-card-actions>
-      <v-btn color="create-btn" :disabled="!name" @click="handleCreateTask">Create</v-btn>
+      <v-btn color="create-btn" :disabled="!name" @click="handleCreateTaskList">Create</v-btn>
       <v-btn color="cancel-btn" @click="closeDialog">Cancel</v-btn>
     </v-card-actions>
   </v-card>
@@ -36,12 +36,11 @@ export default {
     },
   },
   methods: {
-    handleCreateTask() {
+    handleCreateTaskList() {
       const taskListToCreate = {
         name: this.name,
       };
-      this.$emit('create', taskListToCreate);
-      this.$emit('close');
+      this.$store.dispatch('createTaskList', taskListToCreate);
       this.internalDialogVisible = false;
     },
     closeDialog() {
