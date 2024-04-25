@@ -15,10 +15,18 @@
         <input type="email" id="email" v-model="email" required>
       </div>
       <div>
+        <label for="email">Confirm email:</label>
+        <input type="email" id="emailConfirm" v-model="emailConfirm" required>
+      </div>
+      <div>
         <label for="password">Password:</label>
         <input type="password" id="password" v-model="password" required>
       </div>
-      <button type="submit">Signup</button>
+      <div>
+        <label for="password">Confirm password:</label>
+        <input type="password" id="passwordConfirm" v-model="passwordConfirm" required>
+      </div>
+      <v-btn :disabled="!isInputMatching" type="submit">Signup</v-btn>
     </form>
     <p>Already have an account? <router-link to="/">Login</router-link></p>
   </div>
@@ -32,8 +40,15 @@ export default {
       firstName: '',
       lastName: '',
       email: '',
-      password: ''
+      password: '',
+      passwordConfirm: '',
+      emailConfirm: '',
     };
+  },
+  computed: {
+    isInputMatching() {
+      return this.password === this.passwordConfirm && this.email === this.emailConfirm && this.email.length>0 && this.password.length>0;
+    }
   },
   methods: {
     async signup() {
