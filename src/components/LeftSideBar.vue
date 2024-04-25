@@ -2,9 +2,13 @@
   <div style="height: 100vh;" >
     <v-card class="drawercard" >
       <v-navigation-drawer
-        permanent
-        mini-variant-width="50"
+        expand-on-hover
+        rail
+        mini-variant-width="130"
         height="100%"
+
+        permanent
+        class="custom-drawer"
       >
         <v-list>
 
@@ -114,7 +118,6 @@
   <style scoped>
   .v-navigation-drawer {
     background-color: #f5f5f5;
-
   }
   .v-navigation-drawer_content {
     background-color: #f5f5f5;
@@ -127,6 +130,10 @@
     text-align: center;
     font-style: italic;
     margin-top: 20px; /* Adjust margin as needed */
+  }
+  .custom-drawer .v-navigation-drawer__rail {
+    /* Set rail width */
+      width: 100px; /* Adjust the width as needed */
   }
   </style>
   
