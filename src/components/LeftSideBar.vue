@@ -15,7 +15,7 @@
           <v-list-item link>
             <v-list-item-content>
               <v-list-item-title class="text-h6" @click="createNewList()">
-                Create new list
+                <v-btn><v-icon>mdi-plus</v-icon>Create new list</v-btn> 
               </v-list-item-title>
             </v-list-item-content>
           </v-list-item>
@@ -28,6 +28,7 @@
           nav
         >
         <v-list>
+          
         <v-list-item
           v-for="taskList in taskLists"
           :key="taskList.name"
@@ -35,16 +36,15 @@
           @click="selectTaskList(taskList.id)"
         >
           <v-list-item-content>
-            <v-list-item-icon>
-              <v-icon>mdi-star</v-icon>
-            </v-list-item-icon>
             <v-list-item-title>{{ taskList.name }}</v-list-item-title>
-            <v-list-item-action><v-btn icon @click="openConfirmationModal">
-              <v-icon>mdi-delete</v-icon>
-            </v-btn></v-list-item-action>  
-            <v-list-item-action><v-btn icon @click="addTaskToList(taskList.id)">
-              <v-icon>mdi-plus</v-icon>
-            </v-btn></v-list-item-action>  
+            <v-list-item-action style="display:flex; ">
+              <v-btn icon @click="openConfirmationModal">
+                <v-icon>mdi-delete</v-icon>
+              </v-btn>
+              <v-btn icon @click="addTaskToList(taskList.id)">
+                <v-icon>mdi-plus</v-icon>
+              </v-btn>
+            </v-list-item-action>  
             
           </v-list-item-content>
         </v-list-item>
@@ -134,6 +134,11 @@
   .custom-drawer .v-navigation-drawer__rail {
     /* Set rail width */
       width: 100px; /* Adjust the width as needed */
+  }
+  .v-list-item__action--stack{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
   }
   </style>
   
