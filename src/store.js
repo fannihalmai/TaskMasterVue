@@ -167,6 +167,9 @@ export default new Vuex.Store({
         console.error('Delete task error:', error);
       }
     },
+    async logout(){
+      localStorage.removeItem('token');
+    },
     async toggleTaskDone({ commit },task) {
       try {
         await fetch(`http://localhost:3000/tasks/${task.id}/`, {

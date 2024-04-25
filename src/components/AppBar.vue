@@ -15,8 +15,8 @@
           <v-icon>mdi-magnify</v-icon>
         </v-btn>
   
-        <v-btn icon>
-          <v-icon>mdi-heart</v-icon>
+        <v-btn icon @click="logout()">
+          <v-icon>mdi-logout</v-icon>
         </v-btn>
   
         <v-btn icon>
@@ -25,3 +25,13 @@
       </v-app-bar>
     </v-card>
   </template>
+  <script>
+  export default {
+    methods: {
+      logout(){
+        this.$store.dispatch("logout");
+        this.$router.push("/");
+     }
+    }
+  }
+  </script>
