@@ -10,7 +10,7 @@
         <v-spacer></v-spacer>
 
   
-        <v-btn icon @click="logout()">
+        <v-btn icon v-if="isLogged" @click="logout()">
           <v-icon>mdi-logout</v-icon>
         </v-btn>
   
@@ -18,7 +18,13 @@
     </v-card>
   </template>
   <script>
+  import { mapState } from 'vuex'
   export default {
+    computed: {
+      ...mapState({
+        isLogged: 'isLoggedIn',
+      })
+    },
     methods: {
       logout(){
         this.$store.dispatch("logout");

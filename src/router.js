@@ -3,21 +3,13 @@ import VueRouter from 'vue-router';
 import Login from './views/Login.vue';
 import Signup from './views/Signup.vue';
 import Dashboard from './views/Dashboard.vue';
-import store from './store';
 
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: '/',
-    component: Dashboard,
-    beforeEnter: (to, from, next) => {
-      if (store.state.isLoggedIn) {
-        next(); 
-      } else {
-        next('/login');
-      }
-    }
+    component: Login
   },
   {
     path: '/login',
@@ -28,15 +20,9 @@ const routes = [
     component: Signup
   },
   {
+    // TODO keep session as when reload 
     path: '/dashboard',
     component: Dashboard,
-    beforeEnter: (to, from, next) => {
-      if (store.state.isLoggedIn) {
-        next(); 
-      } else {
-        next('/');
-      }
-    }
   }
 ];
 
