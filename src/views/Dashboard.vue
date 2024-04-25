@@ -112,7 +112,7 @@
 }
 .details {
   flex-shrink: 0;
-  margin: 20px;
+  margin-right: auto;
   overflow-y: auto;
   background-color: #f0f0f0;
 }

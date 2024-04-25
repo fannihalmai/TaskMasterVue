@@ -1,7 +1,7 @@
 <template>
     <div class="details">
     <div v-if="selectedTask">
-      <h2>Additional Task Details</h2>
+      <h2>Task Details</h2>
       <p><strong>Title:</strong> {{ selectedTask.shortDescription }}</p>
       <p><strong>Description:</strong> {{ selectedTask.longDescription }}</p>
       <p><strong>Due Date:</strong> {{ formatDate(selectedTask.dueDate) }}</p>
@@ -45,6 +45,7 @@
         // You can emit an event to the parent component or make an API call here
         this.closeConfirmationModal();
         this.$store.dispatch('deleteTask', this.selectedTask.id);
+        this.$store.commit('setSelectedTask', null);
       },
       formatDate(date){
         return new Date(date).toLocaleDateString();

@@ -88,6 +88,7 @@
         console.log(taskListId)
         this.$store.commit('setSelectedTaskList', taskListId);
         this.$store.dispatch('fetchTasksForTaskList');
+        this.$store.commit('setSelectedTask', null);
       },
       createNewList(){
         console.log('Create new list')
