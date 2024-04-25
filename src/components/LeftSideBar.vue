@@ -17,7 +17,7 @@
           </v-list-item>
         </v-list>
         <v-divider></v-divider>
-        <div v-if="taskLists.length === 0" class="empty-message">
+        <div v-if="!taskLists || taskLists.length === 0" class="empty-message">
           No current task lists available..
         </div>
         <v-list
@@ -37,6 +37,9 @@
             <v-list-item-title>{{ taskList.name }}</v-list-item-title>
             <v-list-item-action><v-btn icon @click="deleteTaskList(taskList.id)">
               <v-icon>mdi-delete</v-icon>
+            </v-btn></v-list-item-action>  
+            <v-list-item-action><v-btn icon @click="addTask(taskList.id)">
+              <v-icon>mdi-plus</v-icon>
             </v-btn></v-list-item-action>  
             
           </v-list-item-content>
@@ -81,6 +84,11 @@
       deleteTaskList(taskListId){
         console.log('Delete task list with id:', taskListId)
         this.$store.dispatch('deleteTaskList', taskListId);
+      },
+      addTask(taskListId){
+        console.log('Add task to task list with id:', taskListId)
+        this.$store.commit('setSelectedTaskList', taskListId);
+        this.$emit('openNewTaskDialog');
       },
       handleCreateList(newListData) {
         console.log('Creating new list with data:', newListData);

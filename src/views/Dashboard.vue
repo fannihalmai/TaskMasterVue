@@ -2,7 +2,7 @@
     <div class="task-dashboard">
       <div class="sidebar">
         <!-- Sidebar component to display task lists -->
-        <leftSideBar :taskLists="taskLists" @selectTaskList="selectTaskList" @openNewListDialog="openNewListDialog"/>
+        <leftSideBar :taskLists="taskLists" @selectTaskList="selectTaskList" @openNewTaskDialog="openNewTaskDialog" @openNewListDialog="openNewListDialog"/>
       </div>
       <div class="main">
         <!-- Main component to display tasks -->
