@@ -1,13 +1,24 @@
 
 <template>
- <div class="table">
+ <div >
+
   <div v-if="tasks.length">
+    
+      <v-btn-toggle  v-model="isDoneToggle">
+          <v-btn>
+            Completed
+          </v-btn>
+          <v-btn> 
+            To Do
+          </v-btn>
+    </v-btn-toggle>
+
     <v-btn
         fab
+        dark
         absolute
         right
         bottom
-        dark
         @click="createNewTask()"
       >
       <v-icon>mdi-plus</v-icon>
@@ -16,7 +27,7 @@
       position: relative
       max-width="500"
       :headers="headers"
-      :items="tasks"
+      :items="filteredDataTasks"
       :items-per-page="5"
       class="elevation-1"
     >
@@ -29,11 +40,11 @@
           
           <td style="position: relative; vertical-align: middle;">
             <v-btn small @click="toggleTaskDone(item)" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
-              Mark as done
+              <v-icon>mdi-check</v-icon> {{ item.isDone ? "Mark In Progress" : "Mark Done"}}
             </v-btn>
           </td>
 
-          <td>{{ item.isDone }}</td>
+          <td>{{ item.isDone ? "Successfully completed" : "In progress" }}</td>
         </tr>
       </transition>
         
@@ -50,7 +61,8 @@
   </template>
 
   <script>
-  export default {
+  import { mapState } from 'vuex'
+    export default {
     name: 'MainView',
     data () {
       return {
@@ -65,13 +77,24 @@
           { text: 'Is done?', value: 'priority' },
           { text: 'Status', value: 'status' },
         ],
+        isDoneToggle: 0,
+        dataTasks: [],
         }
       },
       computed: {
-          tasks() {
-              return this.$store.state.tasks;
-          },
+        ...mapState({
+          tasks: 'tasks',
+        }),
+        filteredDataTasks() {
+          const bool = this.isDoneToggle === 0;
+          return this.dataTasks.filter((task) => task.isDone == bool);
         },
+      },
+      watch: {
+        tasks(newValue) {
+          this.dataTasks = newValue;
+        },
+      },
         methods: {
             selectTask(task) {
                 this.$store.commit('setSelectedTask', task);
@@ -83,16 +106,26 @@
               return new Date(date).toLocaleDateString();
             },
             toggleTaskDone(task) {
+              this.dataTasks.filter((t) => {
+                if(t.id === task.id){
+                  t.isDone = !t.isDone;
+                }
+              });          
               this.$store.dispatch('toggleTaskDone', task);
-              setTimeout(() => {
-                alert('Task marked as done');
-              }, 1000);
             },
         }
     };
   </script>
   
 <style scoped>
+  .table{
+    margin: 50px;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    backdrop-filter: blur(10px);
+    background-color: #f0f0f0;
+  }
   .v-btn {
     margin: 0 50px 100px 0;
   }
@@ -104,5 +137,8 @@
       width: 100px; /* Adjust image width as needed */
       height: auto; /* Maintain aspect ratio */
     }
+  .theme--light.v-btn-toggle:not(.v-btn-toggle--group){
+       background-color: #f0f0f0;
+  }
 </style>
   

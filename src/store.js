@@ -27,7 +27,6 @@ export default new Vuex.Store({
       state.selectedTaskListId = taskListId;
     },
     setTasks(state, tasks) {
-      console.log("New: ", tasks)
       state.tasks = tasks;
     },
     setSelectedTask(state, task) {
@@ -42,6 +41,21 @@ export default new Vuex.Store({
     }
   },   
   actions: {
+    async toggleTaskDone({ commit }, task) {
+      try {
+        await fetch(`http://localhost:3000/tasks/${task.id}`, {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+          },
+          body: JSON.stringify({ isDone : !task.done }),
+        });
+        commit('toggleTaskDone', task.id);
+      } catch(error) {
+        console.error('Toggle task done error:', error);
+      }
+    },
     async login({ commit }, { email, password }) {
       try {
         const response = await fetch('http://localhost:3000/auth/login', {
@@ -175,21 +189,6 @@ export default new Vuex.Store({
     async logout({ commit }){
       localStorage.removeItem('token');
       commit('setLoggedIn', false);
-    },
-    async toggleTaskDone({ commit },task) {
-      try {
-        await fetch(`http://localhost:3000/tasks/${task.id}/`, {
-          method: 'PATCH',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + localStorage.getItem('token')
-          },
-          body: JSON.stringify({ isDone: !task.isDone })
-        });
-        commit('toggleTaskDone', task.id);
-      } catch (error) {
-        console.error('Toggle task done error:', error);
-      }
     },
   },
   getters: {
