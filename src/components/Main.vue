@@ -34,6 +34,7 @@
   </div>
   <div v-else>
       <h2 class="no-task-text"> No tasks available, please select or create a new task list</h2>
+      <img src="../assets/sadghost.png">
   </div>
     
   </div>
@@ -82,5 +83,9 @@
     text-align: center;
     margin-top: 200px;
   }
+  .sad-ghost {
+      width: 100px; /* Adjust image width as needed */
+      height: auto; /* Maintain aspect ratio */
+    }
 </style>
   
