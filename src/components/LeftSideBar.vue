@@ -33,7 +33,7 @@
           v-for="taskList in taskLists"
           :key="taskList.name"
           link
-          @click="selectTaskList(taskList.name)"
+          @click="selectTaskList(taskList.id)"
         >
           <v-list-item-content>
             <v-list-item-title>{{ taskList.name }}</v-list-item-title>
@@ -41,7 +41,7 @@
               <v-btn icon @click="openConfirmationModal">
                 <v-icon>mdi-delete</v-icon>
               </v-btn>
-              <v-btn icon @click="addTaskToList(taskList.name)">
+              <v-btn icon @click="addTaskToList(taskList.id)">
                 <v-icon>mdi-plus</v-icon>
               </v-btn>
             </v-list-item-action>  
@@ -77,19 +77,21 @@
     computed: {
       ...mapState({
         taskLists: 'taskLists',
-        selectedTaskListName: 'selectedTaskListName',
+        selectedTaskListId: 'selectedTaskListId',
       })
     },
     methods: {
       openConfirmationModal() {
         this.showConfirmationModal = true;
       },
-      selectTaskList(taskListName) {
-        this.$store.commit('setSelectedTaskList', taskListName);
+      selectTaskList(taskListId) {
+        console.log(taskListId)
+        this.$store.commit('setSelectedTaskList', taskListId);
         this.$store.dispatch('fetchTasksForTaskList');
         this.$store.commit('setSelectedTask', null);
       },
       createNewList(){
+        console.log('Create new list')
         this.$emit('openNewListDialog');
       },
       closeNewListDialog() {
@@ -100,10 +102,11 @@
       },
       deleteTaskList(){
         this.closeConfirmationModal();
-        this.$store.dispatch('deleteTaskList', this.selectedTaskListName);
+        this.$store.dispatch('deleteTaskList', this.selectedTaskListId);
       },
-      addTaskToList(taskListName){
-        this.$store.commit('setSelectedTaskList', taskListName);
+      addTaskToList(taskListId){
+        console.log('Add task to task list with id:', taskListId)
+        this.$store.commit('setSelectedTaskList', taskListId);
         this.$emit('openNewTaskDialog');
       },
       handleCreateList(newListData) {

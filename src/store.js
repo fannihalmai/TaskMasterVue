@@ -6,7 +6,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     user: null,
-    selectedTaskListName: null,
+    selectedTaskListId: null,
     tasks: [],
     selectedTask: null,
     taskLists: [],
@@ -23,8 +23,8 @@ export default new Vuex.Store({
     setTaskLists(state, taskLists) {
       state.taskLists = taskLists;
     },
-    setSelectedTaskList(state, taskListName) {
-      state.selectedTaskListName = taskListName;
+    setSelectedTaskList(state, taskListId) {
+      state.selectedTaskListId = taskListId;
     },
     setTasks(state, tasks) {
       state.tasks = tasks;
@@ -98,7 +98,7 @@ export default new Vuex.Store({
     },
     async fetchTasksForTaskList({ commit, state }) {
       try {
-        const taskListId = state.taskLists.find(taskList => taskList.name === state.selectedTaskListName).id;
+        const taskListId = state.selectedTaskListId;
         if (!taskListId) {
           return; // No selected task list, do nothing
         }
@@ -160,8 +160,7 @@ export default new Vuex.Store({
         console.error('Create task error:', error);
       }
     },
-    async deleteTaskList({ commit, state }, taskListName){
-      const taskListId = state.taskLists.find(taskList => taskList.name === taskListName).id;
+    async deleteTaskList({ commit, state }, taskListId){
       try {
         await fetch(`${process.env.VUE_APP_BACKEND_API}/users/task-lists/${taskListId}`, {
           method: 'DELETE',
