@@ -132,7 +132,8 @@ export default new Vuex.Store({
         if (!response.ok) {
           throw new Error('Failed to create task list');
         }
-        commit('setTaskLists', [...state.taskLists, title]);
+        const taskList = await response.json();
+        commit('setTaskLists', [...state.taskLists, taskList]);
       } catch (error) {
         console.error('Create task list error:', error);
       }
